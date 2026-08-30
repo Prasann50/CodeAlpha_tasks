@@ -1,0 +1,401 @@
+/* Core Design System & Theme Customizations */
+:root {
+  --bg-primary: #0b0f19;
+  --panel-bg: rgba(20, 26, 40, 0.65);
+  --panel-border: rgba(255, 255, 255, 0.08);
+  --panel-shadow: rgba(0, 0, 0, 0.4);
+  
+  /* HSL Tailored Brand Colors */
+  --text-primary: #f3f4f6;
+  --text-secondary: #9ca3af;
+  --accent-color: #6366f1; /* Indigo */
+  --accent-hover: #4f46e5;
+  --accent-glow: rgba(99, 102, 241, 0.3);
+  
+  /* Keypad Button Colors */
+  --btn-num-bg: rgba(255, 255, 255, 0.05);
+  --btn-num-hover: rgba(255, 255, 255, 0.09);
+  --btn-action-bg: rgba(255, 255, 255, 0.1);
+  --btn-action-hover: rgba(255, 255, 255, 0.16);
+  --btn-op-bg: rgba(99, 102, 241, 0.15);
+  --btn-op-hover: rgba(99, 102, 241, 0.25);
+  --btn-op-text: #818cf8;
+  
+  /* Fonts */
+  --font-ui: 'Inter', sans-serif;
+  --font-display: 'Orbitron', monospace;
+}
+
+/* Global Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-ui);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Background Ambient Orbs */
+.background-decorations {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.circle {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.45;
+  animation: float 20s infinite ease-in-out;
+}
+
+.circle-1 {
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, #6366f1 0%, transparent 70%);
+  top: -10%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.circle-2 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, #ec4899 0%, transparent 70%);
+  bottom: -10%;
+  right: 10%;
+  animation-delay: -5s;
+}
+
+.circle-3 {
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, #3b82f6 0%, transparent 70%);
+  top: 40%;
+  right: 30%;
+  animation-delay: -10s;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-20px) scale(1.1);
+  }
+}
+
+/* Main Container */
+.calculator-container {
+  position: relative;
+  width: 375px;
+  height: 680px;
+  border-radius: 28px;
+  background: var(--panel-bg);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--panel-border);
+  box-shadow: 0 24px 60px var(--panel-shadow);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 24px;
+  transition: transform 0.3s ease;
+}
+
+/* Header */
+.calculator-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  z-index: 11;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.brand-dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--accent-color);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--accent-color);
+}
+
+.brand h1 {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--text-secondary);
+}
+
+.history-toggle-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.history-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+}
+
+/* Display Screen */
+.calculator-screen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  margin-bottom: 24px;
+  padding: 10px 4px;
+  text-align: right;
+  word-break: break-all;
+  overflow: hidden;
+}
+
+.expression-display {
+  font-size: 16px;
+  color: var(--text-secondary);
+  min-height: 24px;
+  margin-bottom: 8px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  transition: all 0.15s ease;
+}
+
+.main-display {
+  font-family: var(--font-display);
+  font-size: 42px;
+  font-weight: 500;
+  color: var(--text-primary);
+  line-height: 1.2;
+  transition: font-size 0.15s ease;
+  width: 100%;
+}
+
+/* Keypad Grid */
+.calculator-keypad {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+/* Base Button Styles */
+.btn {
+  border: none;
+  outline: none;
+  height: 64px;
+  border-radius: 18px;
+  font-size: 20px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+}
+
+.btn:active {
+  transform: scale(0.92);
+}
+
+/* Button Classes */
+.btn-number {
+  background-color: var(--btn-num-bg);
+  color: var(--text-primary);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.btn-number:hover {
+  background-color: var(--btn-num-hover);
+}
+
+.btn-action {
+  background-color: var(--btn-action-bg);
+  color: var(--text-primary);
+}
+
+.btn-action:hover {
+  background-color: var(--btn-action-hover);
+}
+
+.btn-operator {
+  background-color: var(--btn-op-bg);
+  color: var(--btn-op-text);
+  font-size: 22px;
+}
+
+.btn-operator:hover {
+  background-color: var(--btn-op-hover);
+}
+
+.btn-equals {
+  background-color: var(--accent-color);
+  color: #ffffff;
+  font-size: 22px;
+  box-shadow: 0 8px 20px var(--accent-glow);
+}
+
+.btn-equals:hover {
+  background-color: var(--accent-hover);
+  box-shadow: 0 8px 24px rgba(99, 102, 241, 0.45);
+}
+
+/* Active State for Keyboard triggers */
+.btn.active-press {
+  transform: scale(0.92);
+  filter: brightness(1.2);
+}
+
+/* Sliding History Panel */
+.history-panel {
+  position: absolute;
+  top: 0;
+  right: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(11, 15, 25, 0.95);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  z-index: 100;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 28px;
+}
+
+.history-panel.open {
+  right: 0;
+}
+
+.history-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 12px;
+}
+
+.history-panel-header h2 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.btn-clear-history {
+  background: transparent;
+  border: none;
+  color: #f43f5e;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+.btn-clear-history:hover {
+  background: rgba(244, 63, 94, 0.1);
+}
+
+.history-list {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.history-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.history-item:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.history-item-expr {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+
+.history-item-result {
+  font-family: var(--font-display);
+  font-size: 18px;
+  color: var(--text-primary);
+}
+
+.no-history-msg {
+  color: var(--text-secondary);
+  text-align: center;
+  margin-top: 40px;
+  font-size: 14px;
+}
+
+/* Custom Scrollbar for history list */
+.history-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.history-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.history-list::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+}
+
+.history-list::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Responsiveness for desktop scaling */
+@media (max-width: 400px) {
+  body {
+    padding: 12px;
+  }
+  .calculator-container {
+    width: 100%;
+    height: 100vh;
+    border-radius: 0;
+  }
+  .history-panel {
+    border-radius: 0;
+  }
+}
