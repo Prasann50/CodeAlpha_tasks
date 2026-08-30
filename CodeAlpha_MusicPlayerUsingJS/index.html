@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BeatStream - Music Player</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome for Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Dynamic Mesh Background Grid -->
+    <div class="mesh-bg">
+        <div class="circle circle-1"></div>
+        <div class="circle circle-2"></div>
+        <div class="circle circle-3"></div>
+    </div>
+
+    <!-- Main Application Container -->
+    <div class="app-container">
+        <!-- Glassmorphic Player Card -->
+        <main class="player-card">
+            <!-- Header bar -->
+            <header class="player-header">
+                <span class="logo"><i class="fa-solid fa-wand-magic-sparkles"></i> BeatStream</span>
+                <button id="playlist-toggle" class="icon-btn" aria-label="Toggle Playlist">
+                    <i class="fa-solid fa-list-ul"></i>
+                </button>
+            </header>
+
+            <!-- Album Art & Audio Visualizer Screen -->
+            <section class="display-section">
+                <div class="art-container">
+                    <img id="album-art" src="assets/cover1.png" alt="Album Cover" class="album-art">
+                    <!-- Real-time Web Audio Visualizer Overlay -->
+                    <canvas id="visualizer" width="300" height="300"></canvas>
+                </div>
+            </section>
+
+            <!-- Song metadata -->
+            <section class="metadata-section">
+                <h1 id="song-title" class="song-title">Select a Track</h1>
+                <p id="song-artist" class="song-artist">To begin listening</p>
+            </section>
+
+            <!-- Custom Progress Bar / Seek Slider -->
+            <section class="progress-section">
+                <div class="time-info">
+                    <span id="current-time">0:00</span>
+                    <span id="duration-time">0:00</span>
+                </div>
+                <div class="progress-slider-container">
+                    <input type="range" id="progress-bar" min="0" max="100" value="0" step="0.1"
+                        aria-label="Seek track">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+            </section>
+
+            <!-- Controller Section -->
+            <section class="controls-section">
+                <!-- Shuffle, Prev, Play/Pause, Next, Repeat -->
+                <button id="shuffle-btn" class="control-btn secondary-btn" title="Shuffle"><i
+                        class="fa-solid fa-shuffle"></i></button>
+                <button id="prev-btn" class="control-btn" title="Previous"><i
+                        class="fa-solid fa-backward-step"></i></button>
+                <button id="play-btn" class="control-btn main-play-btn" title="Play"><i
+                        class="fa-solid fa-play"></i></button>
+                <button id="next-btn" class="control-btn" title="Next"><i class="fa-solid fa-forward-step"></i></button>
+                <button id="repeat-btn" class="control-btn secondary-btn" title="Repeat"><i
+                        class="fa-solid fa-repeat"></i></button>
+            </section>
+
+            <!-- Volume Controller -->
+            <section class="volume-section">
+                <button id="mute-btn" class="icon-btn" aria-label="Mute"><i
+                        class="fa-solid fa-volume-high"></i></button>
+                <div class="volume-slider-container">
+                    <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.7" aria-label="Volume">
+                    <div class="volume-fill" id="volume-fill"></div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Playlist & Upload Drawer Panel -->
+        <aside class="playlist-sidebar" id="playlist-sidebar">
+            <div class="sidebar-header">
+                <h2>Queue & Library</h2>
+                <button id="close-sidebar" class="icon-btn" aria-label="Close Playlist"><i
+                        class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <!-- Search and Upload tools -->
+            <div class="sidebar-tools">
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="search-tracks" placeholder="Search track or artist...">
+                </div>
+
+                <!-- File Upload area -->
+                <div class="upload-area" id="drop-zone">
+                    <input type="file" id="file-upload" accept="audio/*" multiple hidden>
+                    <label for="file-upload" class="upload-label">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                        <span>Drag files here or <strong>Browse</strong></span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Scrollable Track List -->
+            <div class="track-list" id="track-list">
+                <!-- Javascript will populate playlist items here -->
+            </div>
+        </aside>
+    </div>
+
+    <!-- Script File -->
+    <script src="app.js"></script>
+</body>
+
+</html>
